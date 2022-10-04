@@ -20,10 +20,10 @@ const Venta = sequelize.define("Venta",{
 });
 
 
-User.hasMany(Venta);
+User.hasMany(Venta,{foreignKey:{allowNull:false}});
 Venta.belongsTo(User);
 
-Product.hasMany(Venta);
+Product.hasMany(Venta,{foreignKey:{allowNull:false}});
 Venta.belongsTo(Product);
 
 await sequelize.sync();
@@ -40,10 +40,16 @@ const producto = await Product.create({
     descripcion: "pan"
 });
 
+const venta = await Venta.create({
+    fecha: Date.now(),
+    ProductId: producto.id,
+    UserId: user.id
+});
+
 const usuarios = await User.findAll();
-const borrado = await Product.destroy({
+/*const borrado = await Product.destroy({
     where:{
         id:6
     }
 })
-console.log("Productos eliminados",borrado)
+console.log("Productos eliminados",borrado)*/
