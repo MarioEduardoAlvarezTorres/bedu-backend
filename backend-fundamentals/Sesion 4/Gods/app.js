@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const PORT = 3000;
-
+app.use(express.json());
 const gods = {
     Zeus:{live:'Olympus',symbol: 'Thunderbolt'},
     Hades:{live:'Underworld',symbol:'Cornucopia'}
@@ -35,6 +35,45 @@ app.get('/gods/:name',(req,res)=>{
             msg: 'No se encontro Dios'
         })
     }
+});
+
+app.post('/gods/:name',(req,res)=>{
+    const {name} = req.params;
+    const data = req.body;
+    gods[name] = data;
+    res.status(201).json({
+        msg: data
+    });
+});
+
+app.put('/gods/:name',(req,res)=>{
+    const {name} = req.params;
+    if(!(name in gods)){
+        res.status(404).json({
+            msg: 'Got not found'
+        })
+        return;
+    }
+    const data = req.body;
+    gods[name] = data;
+    res.json({
+        msg: gods[name]
+    })
+
+});
+
+app.delete('/gods/:name',(req,res)=>{
+    const {name} = req.params;
+    if(!(name in gods)){
+        res.status(404).json({
+            msg: 'Got not found'
+        })
+        return;
+    }
+    delete gods[name];
+    res.json({
+        deleted:true
+    })
 });
 
 app.listen(PORT,() =>{
