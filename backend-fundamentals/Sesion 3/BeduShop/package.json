@@ -1,0 +1,20 @@
+{
+  "name": "bedushop",
+  "version": "1.0.0",
+  "description": "Proyecto creado en sesión 3 de Bedo backend fundamentals",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MarioEduardo",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.23.2",
+    "sqlite3": "^5.1.2"
+  }
+}
