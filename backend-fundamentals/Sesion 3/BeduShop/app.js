@@ -11,7 +11,10 @@ const User = sequelize.define("User",{
 
 const Product = sequelize.define("Product",{
     nombre: DataTypes.STRING,
-    precio: DataTypes.DOUBLE,
+    precio:{
+        type:DataTypes.DOUBLE,
+        allowNull:false
+    },
     descripcion: DataTypes.TEXT
 });
 
