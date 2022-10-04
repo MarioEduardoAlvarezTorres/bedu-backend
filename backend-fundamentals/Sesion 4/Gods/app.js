@@ -15,13 +15,26 @@ app.get('/',(req,res) =>{
 });
 
 app.get('/gods',(req,res)=>{
-    res.json(gods);
+    const {live} = req.query;
+    if( live ){
+        let filtered_gods = Object.entries(gods).filter(god => god[1].live === live);
+        filtered_gods = Object.fromEntries(filtered_gods);
+        res.json(filtered_gods) 
+    }else{
+        res.json(gods);
+    }
 });
 
 app.get('/gods/:name',(req,res)=>{
     //const name = req.params.name;
     const {name} = req.params;
-    res.json(gods[name]);
+    if( name in gods ){
+        res.json(gods[name]);
+    }else{
+        res.status(404).json({
+            msg: 'No se encontro Dios'
+        })
+    }
 });
 
 app.listen(PORT,() =>{
