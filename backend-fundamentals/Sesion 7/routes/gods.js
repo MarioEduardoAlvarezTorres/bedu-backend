@@ -7,10 +7,12 @@ const {
     deleteGod
 } = require('../controllers/gods')
 
-router.get('/', getGods);
-router.get('/:id', getGod);
-router.post('/', createGod);
-router.patch('/:id', updateGod);
-router.delete('/:id', deleteGod);
+const auth = require('../config/auth');
+
+router.get('/', auth.optional, getGods);
+router.get('/:id', auth.optional, getGod);
+router.post('/', auth.required, createGod);
+router.patch('/:id', auth.required, updateGod);
+router.delete('/:id', auth.required, deleteGod);
 
 module.exports = router;
