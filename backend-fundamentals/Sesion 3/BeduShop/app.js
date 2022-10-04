@@ -9,8 +9,24 @@ const User = sequelize.define("User",{
 
 });
 
+const Product = sequelize.define("Product",{
+    nombre: DataTypes.STRING,
+    precio: DataTypes.DOUBLE,
+    descripcion: DataTypes.TEXT
+});
 
-User.sync()
+const Venta = sequelize.define("Venta",{
+    fecha: DataTypes.DATE
+});
+
+
+User.hasMany(Venta);
+Venta.belongsTo(User);
+
+Product.hasMany(Venta);
+Venta.belongsTo(Product);
+
+await sequelize.sync();
 
 User.create({
     nombre: "Mario",
