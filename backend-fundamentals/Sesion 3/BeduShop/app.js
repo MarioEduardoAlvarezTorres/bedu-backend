@@ -28,11 +28,22 @@ Venta.belongsTo(Product);
 
 await sequelize.sync();
 
-User.create({
-    nombre: "Mario",
+const user = await User.create({
+    nombre: "Mario Eduardo",
     correo: "eduardoat43@gmail.com",
     edad: 22
 });
 
+const producto = await Product.create({
+    nombre: "Motoneta",
+    precio: 11,
+    descripcion: "pan"
+});
+
 const usuarios = await User.findAll();
-console.log(usuarios)
+const borrado = await Product.destroy({
+    where:{
+        id:6
+    }
+})
+console.log("Productos eliminados",borrado)
