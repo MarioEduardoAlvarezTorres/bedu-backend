@@ -20,8 +20,8 @@ async function getGods(req,res){
 async function updateGod(req,res){
     const {id} = req.params;
     const god = req.body;
-    const update = await God.update(god,{where:{id}});
-    const god_update = await God.findByPk(update[0]);
+    await God.update(god,{where:{id}});
+    const god_update = await God.findByPk(id);
     res.status(200).json(god_update);
 }
 
@@ -31,4 +31,12 @@ async function deleteGod(req,res){
         where:{id}
     });
     res.status(200).json(deleted)
+}
+
+module.exports = {
+    createGod,
+    getGod,
+    getGods,
+    updateGod,
+    deleteGod
 }
